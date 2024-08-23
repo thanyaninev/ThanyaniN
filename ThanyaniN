@@ -1,0 +1,81 @@
+import java.util.Scanner;
+
+public class ThanyaniN {
+    public static void main(String[] args) {
+        char[] board = {'-', '-', '-', '-', '-', '-', '-', '-', '-'};
+        char currentPlayer = 'X';
+        Scanner scanner = new Scanner(System.in);
+        boolean gameOn = true;
+
+        while (gameOn) {
+            // Print the board
+            System.out.println("Board:");
+            for (int i = 0; i < 9; i++) {
+                System.out.print(board[i] + " ");
+                if ((i + 1) % 3 == 0) {
+                    System.out.println();
+                }
+            }
+
+           
+            int move;
+            while (true) {
+                System.out.println("Player " + currentPlayer + ", enter your move (1-9): ");
+                move = scanner.nextInt() - 1;
+
+                if (move >= 0 && move < 9 && board[move] == '-') {
+                    board[move] = currentPlayer;
+                    break;
+                } else {
+                    System.out.println("Invalid move, try again.");
+                }
+            }
+
+            
+            if ((board[0] != '-' && board[0] == board[1] && board[1] == board[2]) || 
+                (board[3] != '-' && board[3] == board[4] && board[4] == board[5]) || 
+                (board[6] != '-' && board[6] == board[7] && board[7] == board[8]) || 
+                (board[0] != '-' && board[0] == board[3] && board[3] == board[6]) ||
+                (board[1] != '-' && board[1] == board[4] && board[4] == board[7]) ||
+                (board[2] != '-' && board[2] == board[5] && board[5] == board[8]) || 
+                (board[0] != '-' && board[0] == board[4] && board[4] == board[8]) || 
+                (board[2] != '-' && board[2] == board[4] && board[4] == board[6])) { 
+                gameOn = false;
+                System.out.println("============================\nPlayer " + currentPlayer + " wins!");
+            } else {
+                
+                boolean draw = true;
+                for (int i = 0; i < 9; i++) {
+                    if (board[i] == '-') {
+                        draw = false;
+                        break;
+                    }
+                }
+
+                if (draw) {
+                    gameOn = false;
+                    System.out.println("It's a draw!");
+                } else {
+                  
+                    if (currentPlayer == 'X') {
+                        currentPlayer ='O';
+                    }else {
+                        currentPlayer = 'X';
+                        
+                    }
+                }
+            }
+        }
+
+       
+        System.out.println("============================\nFinal Board:");
+        for (int i = 0; i < 9; i++) {
+            System.out.print(board[i] + " ");
+            if ((i + 1) % 3 == 0) {
+                System.out.println();
+            }
+        }
+
+        scanner.close();
+    }
+}
